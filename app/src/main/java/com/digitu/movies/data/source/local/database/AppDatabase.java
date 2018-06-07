@@ -1,0 +1,22 @@
+package com.digitu.movies.data.source.local.database;
+
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
+
+import com.digitu.movies.data.source.local.converter.Converters;
+import com.digitu.movies.data.source.local.dao.MovieDao;
+import com.digitu.movies.data.source.local.entity.Movie;
+import com.digitu.movies.utils.ApplicationUtils;
+
+import static com.digitu.movies.data.source.local.database.AppDatabase.VERSION;
+
+@Database(entities = {Movie.class}, version = VERSION, exportSchema = false)
+@TypeConverters({Converters.class})
+public abstract class AppDatabase extends RoomDatabase {
+
+    static final int VERSION = 1;
+    static final String NAME = ApplicationUtils.NAME + ".db";
+
+    public abstract MovieDao getMovieDao();
+}

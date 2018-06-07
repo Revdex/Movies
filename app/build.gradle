@@ -1,0 +1,114 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.digitu.movies"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.properties'
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.xml'
+    }
+
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "4g"
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+ext {
+    support = "27.0.2"
+    lifecycle = "1.0.0"
+    room = "1.0.0"
+    constraint = "1.1.0-beta5"
+    multidex = "1.0.2"
+    glide = "4.4.0"
+    retrofit = "2.3.0"
+    jackson = "2.9.3"
+    rxjava = "2.1.8"
+    rxandroid = "2.0.1"
+    rxretrofit = "1.0.0"
+    dagger = "2.14.1"
+    javax = "1.0"
+    okhttp = "3.9.1"
+    okio = "1.13.0"
+    eventbus = "3.1.1"
+    wasabeef = "2.2.7"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    /* Support */
+    implementation "com.android.support:design:${support}"
+    implementation "com.android.support:support-vector-drawable:${support}"
+    implementation "com.android.support:recyclerview-v7:${support}"
+    implementation "com.android.support:cardview-v7:${support}"
+    implementation "com.android.support.constraint:constraint-layout:${constraint}"
+    implementation "com.android.support:multidex:${multidex}"
+    /* Lifecycle */
+    implementation "android.arch.lifecycle:extensions:${lifecycle}"
+    annotationProcessor "android.arch.lifecycle:compiler:${lifecycle}"
+    /* Room */
+    implementation "android.arch.persistence.room:runtime:${room}"
+    annotationProcessor "android.arch.persistence.room:compiler:${room}"
+    /* Reactivestreams */
+    implementation "android.arch.persistence.room:rxjava2:${room}"
+    implementation "android.arch.lifecycle:reactivestreams:${lifecycle}"
+    /* Glide */
+    implementation "com.github.bumptech.glide:glide:${glide}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${glide}"
+    implementation "com.github.bumptech.glide:okhttp3-integration:${glide}"
+    /* Retrofit */
+    implementation "com.squareup.retrofit2:retrofit:${retrofit}"
+    implementation "com.squareup.retrofit2:converter-jackson:${retrofit}"
+    /* Jackson */
+    implementation "com.fasterxml.jackson.core:jackson-core:${jackson}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jackson}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jackson}"
+    /* Reactivex*/
+    implementation "io.reactivex.rxjava2:rxjava:${rxjava}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid}"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxretrofit}"
+    /* Dagger */
+    implementation "com.google.dagger:dagger:${dagger}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
+    compileOnly "javax.annotation:jsr250-api:${javax}"
+    /* OKhttp3 */
+    implementation "com.squareup.okhttp3:okhttp:${okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okhttp}"
+    implementation "com.squareup.okio:okio:${okio}"
+    /* Eventbus */
+    implementation "org.greenrobot:eventbus:${eventbus}"
+    /* Animator */
+    implementation "jp.wasabeef:recyclerview-animators:${wasabeef}"
+}

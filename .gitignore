@@ -1,0 +1,16 @@
+*.iml
+.gradle
+/localDataSource.properties
+.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
+libs/
+/.idea/
+/.gradle/
+/build/
+/app/build/
+/gradle/
+/Movies.iml
