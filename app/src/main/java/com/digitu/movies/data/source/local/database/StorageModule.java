@@ -24,6 +24,8 @@ public class StorageModule {
     @Singleton
     AppDatabase provideAppDatabase(@NonNull Context context) {
         return Room.databaseBuilder(context.getApplicationContext(),
-                AppDatabase.class, AppDatabase.NAME).build();
+                AppDatabase.class, AppDatabase.NAME)
+                .fallbackToDestructiveMigration()
+                .build();
     }
 }
