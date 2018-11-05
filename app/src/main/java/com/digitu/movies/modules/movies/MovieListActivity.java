@@ -48,7 +48,7 @@ public class MovieListActivity extends BaseActivity {
     }
 
     private void initObserver() {
-        mViewModel.getPopularMovies().observe(this,
+        mViewModel.getMovies().observe(this,
                 movies -> mMovieAdapter.change(movies));
     }
 

@@ -2,6 +2,7 @@ package com.digitu.movies.modules.movies;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
         super();
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
@@ -29,7 +31,7 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
         Movie item = items.get(position);
         holder.bind(item);

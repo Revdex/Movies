@@ -38,8 +38,7 @@ public class MovieRepository {
     }*/
 
     public Single<List<Movie>> getMovies(int page) {
-        return remoteDataSource.getMovies(page)
-                .doOnSuccess(movies -> localDataSource.addMovies(movies));
+        return remoteDataSource.getMovies(page).doOnSuccess(localDataSource::addMovies);
     }
 
     public LiveData<List<Movie>> getMovies() {

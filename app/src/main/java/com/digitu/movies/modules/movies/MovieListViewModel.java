@@ -20,22 +20,22 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MovieListViewModel extends BaseViewModel {
 
-    @Inject MovieRepository mRepository;
-    private int mPage;
+    @Inject MovieRepository repository;
+    private int page;
 
     public MovieListViewModel(@NonNull Application application) {
         super(application);
         App.getDataComponent().inject(this);
-        this.mPage = 0;
+        this.page = 0;
     }
 
-    LiveData<List<Movie>> getPopularMovies() {
-        return mRepository.getMovies();
+    public LiveData<List<Movie>> getMovies() {
+        return repository.getMovies();
     }
 
     public void onLoadMore() {
-        mPage++;
-        mDisposable.add(mRepository.getMovies(mPage)
+        page++;
+        mDisposable.add(repository.getMovies(page)
                 .subscribeOn(Schedulers.io())
                 //.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movies -> Logger.i("onSuccess()", movies),
@@ -43,7 +43,7 @@ public class MovieListViewModel extends BaseViewModel {
     }
 
     public void deleteAll() {
-        mDisposable.add(mRepository.deleteAllMovies()
+        mDisposable.add(repository.deleteAllMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableCompletableObserver() {
