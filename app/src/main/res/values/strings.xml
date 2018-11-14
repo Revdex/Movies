@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="loading">Chargement…</string>
-    ///
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_github">Github</string>
     <string name="error_loading_movie">There seems to have been some error.</string>
-    <string name="default_loading_movie">Press the button to load movie!</string>
 </resources>

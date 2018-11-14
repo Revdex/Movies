@@ -40,7 +40,6 @@ public class MovieListActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list);
         setSupportActionBar(mBinding.toolbar);
         mRcvMovies = mBinding.moviesRcvMovies;
-        mViewModel.onLoadMore();
     }
 
     public void onClickFabLoad(View view) {
@@ -48,6 +47,7 @@ public class MovieListActivity extends BaseActivity {
     }
 
     private void initObserver() {
+        mViewModel.loadMovies();
         mViewModel.getMovies().observe(this,
                 movies -> mMovieAdapter.change(movies));
     }
@@ -58,18 +58,17 @@ public class MovieListActivity extends BaseActivity {
         mRcvMovies.addOnScrollListener(new EndlessScroll(mLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                mViewModel.onLoadMore();
+                mViewModel.loadMovies();
             }
         });
         mRcvMovies.setLayoutManager(mLayoutManager);
         mRcvMovies.setHasFixedSize(true);
+
         mSlideInUpAnimator = new SlideInUpAnimator(new OvershootInterpolator(1f));
         mSlideInUpAnimator.setAddDuration(2000);
         mRcvMovies.setItemAnimator(mSlideInUpAnimator);
         mRcvMovies.setAdapter(mMovieAdapter);
-        mAnimationAdapter = new SlideInBottomAnimationAdapter(mMovieAdapter);
-        mAnimationAdapter.setDuration(1000);
-        mAnimationAdapter.setFirstOnly(false);
-        mRcvMovies.setAdapter(mAnimationAdapter);
+
+
     }
 }

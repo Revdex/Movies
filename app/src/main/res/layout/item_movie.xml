@@ -120,6 +120,7 @@
                 android:maxLines="1"
                 android:minLines="1"
                 android:padding="2dp"
+                android:visibility="gone"
                 android:text='@{movie.genre}'
                 android:textColor="#000"
                 android:textSize="14sp"

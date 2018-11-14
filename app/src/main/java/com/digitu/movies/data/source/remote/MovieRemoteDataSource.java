@@ -1,6 +1,7 @@
 package com.digitu.movies.data.source.remote;
 
 import com.digitu.movies.data.source.local.entity.Movie;
+import com.digitu.movies.data.source.remote.response.MoviesResponse;
 import com.digitu.movies.data.source.remote.service.ServiceEndpoint;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public class MovieRemoteDataSource {
     }
 
     public Single<List<Movie>> getMovies(int page) {
-        return serviceEndpoint.getTopRatedMovies(page).map(response -> response.getMovies());
+        return serviceEndpoint.getTopRatedMovies(page).map(MoviesResponse::getMovies);
     }
 }

@@ -20,8 +20,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MovieListViewModel extends BaseViewModel {
 
-    @Inject MovieRepository repository;
+    @Inject
+    MovieRepository repository;
     private int page;
+    private LiveData<List<Movie>> movies;
 
     public MovieListViewModel(@NonNull Application application) {
         super(application);
@@ -29,11 +31,19 @@ public class MovieListViewModel extends BaseViewModel {
         this.page = 0;
     }
 
+   /*  public LiveData<List<Movie>> getMovies() {
+        if (movies == null) {
+            movies = repository.getMovies();
+            loadMovies();
+        }
+        return movies;
+    }*/
+
     public LiveData<List<Movie>> getMovies() {
         return repository.getMovies();
     }
 
-    public void onLoadMore() {
+    public void loadMovies() {
         page++;
         mDisposable.add(repository.getMovies(page)
                 .subscribeOn(Schedulers.io())

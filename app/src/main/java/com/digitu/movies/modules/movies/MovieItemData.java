@@ -8,6 +8,7 @@ import android.view.View;
 import com.digitu.movies.BR;
 import com.digitu.movies.Config;
 import com.digitu.movies.data.source.local.entity.Movie;
+import com.digitu.movies.utils.DateUtils;
 
 public class MovieItemData extends BaseObservable {
 
@@ -42,28 +43,28 @@ public class MovieItemData extends BaseObservable {
     }
 
     public void setRate(double rate) {
-        this.movie.setVoteAverage(rate);
+        movie.setVoteAverage(rate);
         notifyPropertyChanged(BR.rate);
     }
 
     public long getId() {
-        return this.movie.getId();
+        return movie.getId();
     }
 
     public String getTitle() {
-        return this.movie.getTitle();
+        return movie.getTitle();
     }
 
     public String getDate() {
-        return this.movie.getReleaseDate();
+        return DateUtils.convertDateToStr(DateUtils.convertStrToDate2(movie.getReleaseDate(), "yyyy-MM-dd"), "dd MMMM yyyy");
     }
 
     public String getGenre() {
-        return this.movie.getGenreIds().toString();
+        return movie.getGenreIds().toString();
     }
 
     public String getOverview() {
-        return this.movie.getOverview();
+        return movie.getOverview();
     }
 
     //TODO handle onLongClick
