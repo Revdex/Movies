@@ -1,13 +1,13 @@
 package com.digitu.movies;
 
-import android.support.multidex.MultiDexApplication;
-import android.support.v7.app.AppCompatDelegate;
-
 import com.digitu.movies.data.DaggerDataComponent;
 import com.digitu.movies.data.DataComponent;
 import com.digitu.movies.data.source.local.database.StorageModule;
 import com.digitu.movies.data.source.remote.service.NetworkModule;
 import com.digitu.movies.data.source.remote.service.ServiceEndpoint;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
 
 public class App extends MultiDexApplication {
 

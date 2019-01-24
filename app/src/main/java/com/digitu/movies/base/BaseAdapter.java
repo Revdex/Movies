@@ -1,7 +1,7 @@
 package com.digitu.movies.base;
 
-import android.support.v7.util.DiffUtil;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.digitu.movies.utils.CollectionUtils;

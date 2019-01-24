@@ -4,14 +4,15 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.provider.Settings.Secure;
-import android.support.annotation.Nullable;
 
-public class ApplicationUtils {
+import androidx.annotation.Nullable;
 
-    public static final String NAME = "Movies";
-    public static final String PACKAGE = "digitu.com.movies";
+public interface ApplicationUtils {
 
-    public static PackageInfo getPackageInfo(@Nullable Context context) {
+    String NAME = "Movies";
+    String PACKAGE = "digitu.com.movies";
+
+    static PackageInfo getPackageInfo(@Nullable Context context) {
         PackageInfo packageInfo;
         if (context != null) {
             try {
@@ -25,12 +26,12 @@ public class ApplicationUtils {
         return packageInfo;
     }
 
-    public static String getVersion(@Nullable Context context) {
+    static String getVersion(@Nullable Context context) {
         PackageInfo packageInfo = getPackageInfo(context);
         return packageInfo != null ? packageInfo.versionName : null;
     }
 
-    public static String getDeviceID(@Nullable Context context) {
+    static String getDeviceID(@Nullable Context context) {
         return context != null ? Secure.getString(context.getContentResolver(), Secure.ANDROID_ID) : null;
     }
 }

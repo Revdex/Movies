@@ -10,7 +10,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -47,14 +47,16 @@ android {
 
 ext {
     kotlin = "1.3.0"
-    support = "28.0.0"
-    constraint = "1.1.3"
-    multidex = "1.0.3"
-    lifecycle = "1.1.1"
-    room = "1.1.1"
+    material = "1.1.0-alpha02"
+    support = "1.1.0-alpha01"
+    constraint = "2.0.0-alpha3"
+    multidex = "2.0.1"
+    futures = "1.0.0-alpha02"
+    lifecycle = "2.1.0-alpha01"
+    room = "2.1.0-alpha03"
     paging = "1.0.1"
-    navigation = "1.0.0-alpha07"
-    workmanager = "1.0.0-alpha10"
+    navigation = "1.0.0-alpha11"
+    workmanager = "1.0.0-beta02"
     glide = "4.8.0"
     retrofit = "2.4.0"
     rxretrofit = "1.0.0"
@@ -72,27 +74,31 @@ ext {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     /* Kotlin */
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin"
+    /* Material */
+    implementation "com.google.android.material:material:$material"
     /* Support */
-    implementation "com.android.support:design:${support}"
-    implementation "com.android.support:support-vector-drawable:${support}"
-    implementation "com.android.support:recyclerview-v7:${support}"
-    implementation "com.android.support:cardview-v7:${support}"
-    implementation "com.android.support.constraint:constraint-layout:${constraint}"
-    implementation "com.android.support:multidex:${multidex}"
+    implementation "androidx.appcompat:appcompat:$support"
+    implementation "androidx.vectordrawable:vectordrawable:$support"
+    implementation "androidx.recyclerview:recyclerview:$support"
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.constraintlayout:constraintlayout:$constraint"
+    implementation "androidx.multidex:multidex:$multidex"
+    /* Concurrent Futures */
+    implementation "androidx.concurrent:concurrent-futures:$futures"
     /* ViewModel and LiveData */
-    implementation "android.arch.lifecycle:extensions:${lifecycle}"
-    annotationProcessor "android.arch.lifecycle:compiler:${lifecycle}"
-    implementation "android.arch.lifecycle:reactivestreams:${lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle"
     /* Room */
-    implementation "android.arch.persistence.room:runtime:${room}"
-    annotationProcessor "android.arch.persistence.room:compiler:${room}"
-    implementation "android.arch.persistence.room:rxjava2:${room}"
+    implementation "androidx.room:room-runtime:$room"
+    annotationProcessor "androidx.room:room-compiler:$room"
+    implementation "androidx.room:room-rxjava2:$room"
     /* Paging */
-    implementation "android.arch.paging:runtime:${paging}"
+    implementation 'androidx.paging:paging-runtime:2.1.0-rc01'
     implementation "android.arch.paging:rxjava2:${paging}"
     /* Navigation */
     implementation "android.arch.navigation:navigation-fragment:${navigation}"
@@ -124,6 +130,5 @@ dependencies {
     implementation "com.squareup.okio:okio:${okio}"
     /* Eventbus */
     implementation "org.greenrobot:eventbus:${eventbus}"
-    /* Animator */
-    implementation "jp.wasabeef:recyclerview-animators:${wasabeef}"
+
 }

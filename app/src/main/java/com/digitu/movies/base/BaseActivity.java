@@ -1,17 +1,15 @@
 package com.digitu.movies.base;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
-public abstract class BaseActivity extends AppCompatActivity {
+import androidx.annotation.CallSuper;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-    protected Resources mResources;
+public abstract class BaseActivity extends AppCompatActivity {
     protected BaseActivity mActivity;
     protected Context mContext;
 
@@ -29,21 +27,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = mActivity = this;
-        mResources = getResources();
-        retrieveExtras(getIntent() != null && getIntent().getExtras() != null ? getIntent().getExtras() : new Bundle());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mContext = mActivity = null;
-        mResources = null;
-        removeExtras(getIntent() != null && getIntent().getExtras() != null ? getIntent().getExtras() : new Bundle());
     }
 
-    protected void retrieveExtras(Bundle bundle) {
-    }
 
-    protected void removeExtras(Bundle bundle) {
-    }
 }

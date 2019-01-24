@@ -1,74 +1,69 @@
 package com.digitu.movies.modules.movies;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.animation.OvershootInterpolator;
+import android.view.MenuItem;
 
 import com.digitu.movies.R;
 import com.digitu.movies.base.BaseActivity;
-import com.digitu.movies.databinding.ActivityMovieListBinding;
-import com.digitu.movies.utils.EndlessScroll;
+import com.digitu.movies.base.BaseFragment;
+import com.digitu.movies.data.source.local.entity.Movie;
+import com.google.android.material.tabs.TabLayout;
 
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 public class MovieListActivity extends BaseActivity {
-
-    private RecyclerView mRcvMovies;
-    private MovieAdapter mMovieAdapter;
-    private LinearLayoutManager mLayoutManager;
-    private SlideInUpAnimator mSlideInUpAnimator;
-    private SlideInBottomAnimationAdapter mAnimationAdapter;
-    private ActivityMovieListBinding mBinding;
-    private MovieListViewModel mViewModel;
+    private Toolbar mToolbar;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+    private MoviePagerAdapter mAdapter;
+    private List<BaseFragment> mPages;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
-        initDataBinding();
-        initRecyclerView();
-        initObserver();
+        setContentView(R.layout.activity_movie_list);
+        intiViews();
+        intiPager();
     }
 
-    private void initDataBinding() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list);
-        setSupportActionBar(mBinding.toolbar);
-        mRcvMovies = mBinding.moviesRcvMovies;
+    protected void intiViews() {
+        mToolbar = findViewById(R.id.toolbar);
+        mViewPager = findViewById(R.id.pager);
+        mTabLayout = findViewById(R.id.tabLayout);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void onClickFabLoad(View view) {
-        mViewModel.deleteAll();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            //go to an activity or end this activity with finish
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    private void initObserver() {
-        mViewModel.loadMovies();
-        mViewModel.getMovies().observe(this,
-                movies -> mMovieAdapter.change(movies));
+    protected void intiPager() {
+        mPages = new ArrayList<>();
+        try {
+            mPages.add(MovieListFragment.newInstance(Movie.POPULAR));
+            mPages.add(MovieListFragment.newInstance(Movie.TOP_RATED));
+            mPages.add(MovieListFragment.newInstance(Movie.UPCOMING));
+            mPages.add(MovieListFragment.newInstance(Movie.NOW_PLAYING));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mViewPager.setOffscreenPageLimit(mPages.size());
+        mAdapter = new MoviePagerAdapter(getSupportFragmentManager(), mPages);
+        mViewPager.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    private void initRecyclerView() {
-        mMovieAdapter = new MovieAdapter();
-        mLayoutManager = new LinearLayoutManager(mContext);
-        mRcvMovies.addOnScrollListener(new EndlessScroll(mLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                mViewModel.loadMovies();
-            }
-        });
-        mRcvMovies.setLayoutManager(mLayoutManager);
-        mRcvMovies.setHasFixedSize(true);
 
-        mSlideInUpAnimator = new SlideInUpAnimator(new OvershootInterpolator(1f));
-        mSlideInUpAnimator.setAddDuration(2000);
-        mRcvMovies.setItemAnimator(mSlideInUpAnimator);
-        mRcvMovies.setAdapter(mMovieAdapter);
-
-
-    }
 }

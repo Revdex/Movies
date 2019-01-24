@@ -1,8 +1,6 @@
 package com.digitu.movies.modules.movies;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.support.annotation.NonNull;
 
 import com.digitu.movies.App;
 import com.digitu.movies.base.BaseViewModel;
@@ -14,40 +12,64 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.digitu.movies.data.source.local.entity.Movie.NOW_PLAYING;
+import static com.digitu.movies.data.source.local.entity.Movie.POPULAR;
+import static com.digitu.movies.data.source.local.entity.Movie.TOP_RATED;
+import static com.digitu.movies.data.source.local.entity.Movie.UPCOMING;
+
 public class MovieListViewModel extends BaseViewModel {
 
-    @Inject
-    MovieRepository repository;
+    @Inject MovieRepository repository;
     private int page;
-    private LiveData<List<Movie>> movies;
+    private int pagePopular;
+    private int pageTopRated;
+    private int pageUpcoming;
+    private int pageNowPlaying;
+
 
     public MovieListViewModel(@NonNull Application application) {
         super(application);
         App.getDataComponent().inject(this);
-        this.page = 0;
+        this.pagePopular = 0;
+        this.pageTopRated = 0;
+        this.pageUpcoming = 0;
+        this.pageNowPlaying = 0;
+        this.page = pagePopular;
     }
 
-   /*  public LiveData<List<Movie>> getMovies() {
-        if (movies == null) {
-            movies = repository.getMovies();
-            loadMovies();
+
+    public LiveData<List<Movie>> getMovies(@Movie.Category String category) {
+        return repository.getMoviesByCategory(category);
+    }
+
+    public void loadMovies(@Movie.Category String category) {
+        switch (category) {
+            default:
+            case POPULAR:
+                pagePopular++;
+                page = pagePopular;
+                break;
+            case TOP_RATED:
+                pageTopRated++;
+                page = pageTopRated;
+                break;
+            case UPCOMING:
+                pageUpcoming++;
+                page = pageUpcoming;
+                break;
+            case NOW_PLAYING:
+                pageNowPlaying++;
+                page = pageNowPlaying;
+                break;
         }
-        return movies;
-    }*/
-
-    public LiveData<List<Movie>> getMovies() {
-        return repository.getMovies();
-    }
-
-    public void loadMovies() {
-        page++;
-        mDisposable.add(repository.getMovies(page)
-                .subscribeOn(Schedulers.io())
-                //.observeOn(AndroidSchedulers.mainThread())
+        mDisposable.add(repository.loadMovies(category, page)
+                //.subscribeOn(Schedulers.io())
                 .subscribe(movies -> Logger.i("onSuccess()", movies),
                         error -> Logger.e("onError()", error.getMessage())));
     }

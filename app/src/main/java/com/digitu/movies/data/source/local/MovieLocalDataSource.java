@@ -1,8 +1,5 @@
 package com.digitu.movies.data.source.local;
 
-import android.arch.lifecycle.LiveData;
-import android.support.annotation.NonNull;
-
 import com.digitu.movies.data.source.local.database.AppDatabase;
 import com.digitu.movies.data.source.local.entity.Movie;
 
@@ -11,6 +8,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LiveDataReactiveStreams;
 import io.reactivex.Completable;
 
 @Singleton
@@ -23,15 +23,28 @@ public class MovieLocalDataSource {
         this.database = database;
     }
 
+    public LiveData<List<Movie>> getMoviesByCategory(String category) {
+        return database.getMovieDao().findAll();
+    }
+
+    public LiveData<List<Movie>> findAllByCategory(final String category) {
+        return LiveDataReactiveStreams.fromPublisher(database.getMovieDao().getAll().filter(movies -> movies.contains(category)));
+    }
+
     public LiveData<List<Movie>> getMovies() {
         return database.getMovieDao().findAll();
     }
 
-    public void addMovies(List<Movie> movies) {
+    public void add(List<Movie> movies) {
         database.getMovieDao().insert(movies);
     }
 
-    public Completable deleteAllMovies() {
+    public void add(Movie movie, @Movie.Category String category) {
+        movie.setCategory(category);
+        database.getMovieDao().insert(movie);
+    }
+
+    public Completable deleteAll() {
         return Completable.fromCallable(() -> database.getMovieDao().delete());
     }
 

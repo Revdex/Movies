@@ -1,9 +1,8 @@
 package com.digitu.movies.data.source.remote.service;
 
-import android.support.annotation.NonNull;
-
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -48,7 +47,7 @@ public class RequestInterceptor implements Interceptor {
         headersBuilder.add(ACCEPT, CONTENT_JSON);
         headersBuilder.add(CONTENT_TYPE, CONTENT_JSON);
         headersBuilder.add(ACCEPT_ENCODING, ENCODING_GZIP);
-        headersBuilder.add(ACCEPT_LANGUAGE, LANGUAGE_FR);
+        headersBuilder.add(ACCEPT_LANGUAGE, LANGUAGE_EN);
         headersBuilder.add(USER_AGENT, AGENT_THE_MOVIE_DB);
         return headersBuilder.build();
     }
@@ -56,7 +55,7 @@ public class RequestInterceptor implements Interceptor {
     public static HttpUrl provideHttpUrl(@NonNull Request original) {
         HttpUrl.Builder httpUrlBuilder = original.url().newBuilder()
                 .addQueryParameter(API_KEY, KEY)
-                .addQueryParameter(LANGUAGE, LANGUAGE_FR);
+                .addQueryParameter(LANGUAGE, LANGUAGE_EN);
         return httpUrlBuilder.build();
     }
 

@@ -1,20 +1,36 @@
 package com.digitu.movies.data.source.local.entity;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Movie {
+
+    public static final String POPULAR = "POPULAR";
+    public static final String TOP_RATED = "TOP_RATED";
+    public static final String UPCOMING = "UPCOMING";
+    public static final String NOW_PLAYING = "NOW_PLAYING";
+
+    @StringDef({POPULAR, TOP_RATED, UPCOMING, NOW_PLAYING})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Category {
+
+    }
 
     @NonNull
     @PrimaryKey
@@ -45,9 +61,11 @@ public class Movie {
     private boolean video;
     @JsonProperty("vote_average")
     private double voteAverage;
+    private Set<String> categories;
 
     public Movie() {
         genreIds = new ArrayList<>();
+        categories = new HashSet<>();
     }
 
     public long getId() {
@@ -160,6 +178,19 @@ public class Movie {
 
     public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
+    }
+
+
+    public Set<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<String> categories) {
+        this.categories = categories;
+    }
+
+    public void setCategory(@Category String category) {
+        this.categories.add(category);
     }
 
     @Override

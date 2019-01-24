@@ -1,14 +1,15 @@
 package com.digitu.movies.modules.movies;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.view.View;
+import android.content.Intent;
 
 import com.digitu.movies.BR;
 import com.digitu.movies.Config;
 import com.digitu.movies.data.source.local.entity.Movie;
-import com.digitu.movies.utils.DateUtils;
+import com.digitu.movies.modules.detail.DetailActivity;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
 public class MovieItemData extends BaseObservable {
 
@@ -56,7 +57,7 @@ public class MovieItemData extends BaseObservable {
     }
 
     public String getDate() {
-        return DateUtils.convertDateToStr(DateUtils.convertStrToDate2(movie.getReleaseDate(), "yyyy-MM-dd"), "dd MMMM yyyy");
+        return movie.getReleaseDate();
     }
 
     public String getGenre() {
@@ -67,12 +68,8 @@ public class MovieItemData extends BaseObservable {
         return movie.getOverview();
     }
 
-    //TODO handle onLongClick
-    public boolean onLongClick(View view) {
-        return true;
-    }
-
-    //TODO handle onClick
-    public void onClick(View view) {
+    public void onClick(Context context) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        context.startActivity(intent);
     }
 }

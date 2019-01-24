@@ -3,25 +3,25 @@ package com.digitu.movies.utils;
 import java.util.Collection;
 import java.util.Map;
 
-public class CollectionUtils {
+public interface CollectionUtils {
 
-    public static boolean isNotEmpty(Map collection) {
+    static boolean isNotEmpty(Map collection) {
         return collection != null && !collection.isEmpty();
     }
 
-    public static int size(Map collection) {
+    static int size(Map collection) {
         return isNotEmpty(collection) ? collection.size() : 0;
     }
 
-    public static boolean isNotEmpty(Collection collection) {
+    static boolean isNotEmpty(Collection collection) {
         return collection != null && !collection.isEmpty();
     }
 
-    public static int size(Collection collection) {
+    static int size(Collection collection) {
         return isNotEmpty(collection) ? collection.size() : 0;
     }
 
-    public static int sizes(Collection... collections) {
+    static int sizes(Collection... collections) {
         int sizes = 0;
         if (collections != null) {
             for (Collection collection : collections) {
@@ -31,19 +31,19 @@ public class CollectionUtils {
         return sizes;
     }
 
-    public static <T> boolean isNotEmpty(T[] array) {
+    static <T> boolean isNotEmpty(T[] array) {
         return array != null && array.length > 0;
     }
 
-    public static <T> int size(T[] array) {
+    static <T> int size(T[] array) {
         return isNotEmpty(array) ? array.length : 0;
     }
 
-    public static String charSequenceToString(CharSequence charSequence) {
+    static String charSequenceToString(CharSequence charSequence) {
         return charSequence != null ? charSequence.toString() : "";
     }
 
-    public static String[] charSequenceToString(CharSequence[] array) {
+    static String[] charSequenceToString(CharSequence[] array) {
         String[] strings = new String[array.length];
         for (int i = 0; i < array.length; i++) {
             strings[i] = charSequenceToString(array[i]);

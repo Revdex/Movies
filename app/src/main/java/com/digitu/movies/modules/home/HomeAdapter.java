@@ -1,4 +1,4 @@
-package com.digitu.movies.modules.movies;
+package com.digitu.movies.modules.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,8 @@ import com.digitu.movies.base.BaseAdapter;
 import com.digitu.movies.base.BaseDiffCallback;
 import com.digitu.movies.base.BaseViewHolder;
 import com.digitu.movies.data.source.local.entity.Movie;
-import com.digitu.movies.databinding.ItemMovieBinding;
+import com.digitu.movies.databinding.ItemHomeBinding;
+import com.digitu.movies.modules.movies.MovieItemData;
 import com.digitu.movies.utils.StringUtils;
 
 import java.util.List;
@@ -18,24 +19,24 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
-public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
+public class HomeAdapter extends BaseAdapter<Movie, HomeAdapter.ViewHolder> {
 
-    public MovieAdapter() {
+    public HomeAdapter() {
         super();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-        Movie movie = items.get(position);
-        holder.bind(movie);
+        Movie item = items.get(position);
+        holder.bind(item);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
     public class ViewHolder extends BaseViewHolder {
 
         private final Context context;
-        private final ItemMovieBinding binding;
+        private final ItemHomeBinding binding;
 
         public ViewHolder(View view) {
             super(view);

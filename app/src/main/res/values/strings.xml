@@ -2,4 +2,7 @@
     <string name="app_name">Movies</string>
     <string name="loading">Chargement…</string>
     <string name="error_loading_movie">There seems to have been some error.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

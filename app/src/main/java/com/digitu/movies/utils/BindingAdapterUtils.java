@@ -1,14 +1,15 @@
 package com.digitu.movies.utils;
 
-import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.RequestBuilder;
 import com.digitu.movies.base.GlideApp;
+
+import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class BindingAdapterUtils {
 

@@ -1,7 +1,6 @@
 package com.digitu.movies.data.source.remote.service;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 
 import com.digitu.movies.utils.Logger;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import androidx.annotation.NonNull;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;

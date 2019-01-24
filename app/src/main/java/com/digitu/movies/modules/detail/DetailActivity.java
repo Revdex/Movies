@@ -1,11 +1,12 @@
 package com.digitu.movies.modules.detail;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.digitu.movies.R;
 import com.digitu.movies.base.BaseActivity;
+
+import androidx.annotation.Nullable;
 
 //TODO DetailActivity
 public class DetailActivity extends BaseActivity {
