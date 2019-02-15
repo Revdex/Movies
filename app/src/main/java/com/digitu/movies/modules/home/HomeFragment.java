@@ -2,6 +2,7 @@ package com.digitu.movies.modules.home;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,9 @@ import com.digitu.movies.R;
 import com.digitu.movies.base.BaseFragment;
 import com.digitu.movies.data.source.local.entity.Movie;
 import com.digitu.movies.modules.movies.MovieListFragment;
-import com.digitu.movies.modules.movies.MovieListViewModel;
+import com.digitu.movies.modules.movies.MovieViewModel;
 import com.digitu.movies.utils.EndlessScroll;
+import com.digitu.movies.utils.Logger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +29,7 @@ public class HomeFragment extends BaseFragment {
     private RecyclerView mRcvMovies;
     private HomeAdapter mMovieAdapter;
     private LinearLayoutManager mLayoutManager;
-    private MovieListViewModel mViewModel;
+    private MovieViewModel mViewModel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -47,7 +49,7 @@ public class HomeFragment extends BaseFragment {
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
-        mViewModel = ViewModelProviders.of(mActivity).get(MovieListViewModel.class);
+        mViewModel = ViewModelProviders.of(mActivity).get(MovieViewModel.class);
 
     }
 
@@ -62,9 +64,13 @@ public class HomeFragment extends BaseFragment {
         mRcvMovies.addOnScrollListener(new EndlessScroll(mLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.i("", "");
+                Logger.d("onLoadMore", "[" + page + "][" + totalItemsCount + "]");
                 mViewModel.loadMovies(category);
             }
         });
+
+
         mRcvMovies.setLayoutManager(mLayoutManager);
         mRcvMovies.setHasFixedSize(true);
         mRcvMovies.setAdapter(mMovieAdapter);

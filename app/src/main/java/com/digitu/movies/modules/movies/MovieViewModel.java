@@ -7,6 +7,7 @@ import com.digitu.movies.base.BaseViewModel;
 import com.digitu.movies.data.source.local.entity.Movie;
 import com.digitu.movies.data.source.repository.MovieRepository;
 import com.digitu.movies.utils.Logger;
+import com.digitu.movies.utils.StringUtils;
 
 import java.util.List;
 
@@ -23,9 +24,10 @@ import static com.digitu.movies.data.source.local.entity.Movie.POPULAR;
 import static com.digitu.movies.data.source.local.entity.Movie.TOP_RATED;
 import static com.digitu.movies.data.source.local.entity.Movie.UPCOMING;
 
-public class MovieListViewModel extends BaseViewModel {
+public class MovieViewModel extends BaseViewModel {
 
-    @Inject MovieRepository repository;
+    @Inject
+    MovieRepository repository;
     private int page;
     private int pagePopular;
     private int pageTopRated;
@@ -33,7 +35,7 @@ public class MovieListViewModel extends BaseViewModel {
     private int pageNowPlaying;
 
 
-    public MovieListViewModel(@NonNull Application application) {
+    public MovieViewModel(@NonNull Application application) {
         super(application);
         App.getDataComponent().inject(this);
         this.pagePopular = 0;
@@ -49,6 +51,7 @@ public class MovieListViewModel extends BaseViewModel {
     }
 
     public void loadMovies(@Movie.Category String category) {
+        if (StringUtils.isEmpty(category)) return;
         switch (category) {
             default:
             case POPULAR:
@@ -68,10 +71,11 @@ public class MovieListViewModel extends BaseViewModel {
                 page = pageNowPlaying;
                 break;
         }
+        Logger.d("LoadMovies()", "[" + category + "] (" + page + ")");
         mDisposable.add(repository.loadMovies(category, page)
-                //.subscribeOn(Schedulers.io())
-                .subscribe(movies -> Logger.i("onSuccess()", movies),
-                        error -> Logger.e("onError()", error.getMessage())));
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
     }
 
     public void deleteAll() {

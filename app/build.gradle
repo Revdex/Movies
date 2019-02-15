@@ -47,28 +47,27 @@ android {
 
 ext {
     kotlin = "1.3.0"
-    material = "1.1.0-alpha02"
-    support = "1.1.0-alpha01"
+    material = "1.1.0-alpha03"
+    support = "1.1.0-alpha02"
     constraint = "2.0.0-alpha3"
     multidex = "2.0.1"
     futures = "1.0.0-alpha02"
-    lifecycle = "2.1.0-alpha01"
-    room = "2.1.0-alpha03"
+    lifecycle = "2.1.0-alpha02"
+    room = "2.1.0-alpha04"
     paging = "1.0.1"
-    navigation = "1.0.0-alpha11"
-    workmanager = "1.0.0-beta02"
+    navigation = "1.0.0-beta01"
+    workmanager = "1.0.0-beta05"
     glide = "4.8.0"
-    retrofit = "2.4.0"
+    retrofit = "2.5.0"
     rxretrofit = "1.0.0"
-    jackson = "2.9.7"
-    rxjava = "2.2.3"
+    jackson = "2.9.8"
+    rxjava = "2.2.6"
     rxandroid = "2.1.0"
-    dagger = "2.19"
+    dagger = "2.21"
     javax = "1.0"
-    okhttp = "3.11.0"
-    okio = "2.1.0"
+    okhttp = "3.13.1"
+    okio = "2.2.2"
     eventbus = "3.1.1"
-    wasabeef = "2.3.0"
 }
 
 dependencies {
@@ -98,7 +97,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-rxjava2:$room"
     /* Paging */
-    implementation 'androidx.paging:paging-runtime:2.1.0-rc01'
+    implementation 'androidx.paging:paging-runtime:2.1.0'
     implementation "android.arch.paging:rxjava2:${paging}"
     /* Navigation */
     implementation "android.arch.navigation:navigation-fragment:${navigation}"
@@ -130,5 +129,7 @@ dependencies {
     implementation "com.squareup.okio:okio:${okio}"
     /* Eventbus */
     implementation "org.greenrobot:eventbus:${eventbus}"
+    /* Eventbus */
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
 }

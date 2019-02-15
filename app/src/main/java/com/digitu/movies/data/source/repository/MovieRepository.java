@@ -41,7 +41,7 @@ public class MovieRepository {
 
     public Single<List<Movie>> loadMovies(@Movie.Category String category, int page) {
         return remoteDataSource.getMoviesByCategory(category, page)
-                .flatMap(Flowable::fromIterable)
+                .flatMap(movies -> Flowable.fromIterable(movies))
                 .doOnNext(movie -> localDataSource.add(movie, category))
                 .toList();
     }

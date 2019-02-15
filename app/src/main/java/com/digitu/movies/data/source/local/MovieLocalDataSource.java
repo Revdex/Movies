@@ -10,7 +10,6 @@ import javax.inject.Singleton;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.LiveDataReactiveStreams;
 import io.reactivex.Completable;
 
 @Singleton
@@ -28,7 +27,7 @@ public class MovieLocalDataSource {
     }
 
     public LiveData<List<Movie>> findAllByCategory(final String category) {
-        return LiveDataReactiveStreams.fromPublisher(database.getMovieDao().getAll().filter(movies -> movies.contains(category)));
+        return database.getMovieDao().findByCategory("%" + category + "%");
     }
 
     public LiveData<List<Movie>> getMovies() {

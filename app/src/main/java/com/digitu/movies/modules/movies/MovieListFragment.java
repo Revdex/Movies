@@ -10,6 +10,7 @@ import com.digitu.movies.R;
 import com.digitu.movies.base.BaseFragment;
 import com.digitu.movies.data.source.local.entity.Movie;
 import com.digitu.movies.utils.EndlessScroll;
+import com.digitu.movies.utils.Logger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,7 @@ public class MovieListFragment extends BaseFragment {
     private RecyclerView mRcvMovies;
     private MovieAdapter mMovieAdapter;
     private LinearLayoutManager mLayoutManager;
-    private MovieListViewModel mViewModel;
+    private MovieViewModel mViewModel;
 
     public MovieListFragment() {
         // Required empty public constructor
@@ -40,13 +41,13 @@ public class MovieListFragment extends BaseFragment {
         return fragment;
     }
 
-    @Override
+/*    @Override
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         if (visible && mViewModel != null) {
             mViewModel.loadMovies(category);
         }
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,13 +55,16 @@ public class MovieListFragment extends BaseFragment {
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
-        mViewModel = ViewModelProviders.of(mActivity).get(MovieListViewModel.class);
+        mViewModel = ViewModelProviders.of(mActivity).get(MovieViewModel.class);
 
     }
 
     private void initObserver() {
         mViewModel.loadMovies(category);
-        mViewModel.getMovies(category).observe(this, movies -> mMovieAdapter.change(movies));
+        mViewModel.getMovies(category).observe(this, movies -> {
+            mMovieAdapter.change(movies);
+            Logger.i("LoadMovies()", "[" + category + "] (" + movies.size() + ")");
+        });
     }
 
     private void initRecyclerView() {

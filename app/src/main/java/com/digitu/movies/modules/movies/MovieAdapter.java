@@ -11,7 +11,6 @@ import com.digitu.movies.base.BaseDiffCallback;
 import com.digitu.movies.base.BaseViewHolder;
 import com.digitu.movies.data.source.local.entity.Movie;
 import com.digitu.movies.databinding.ItemMovieBinding;
-import com.digitu.movies.utils.StringUtils;
 
 import java.util.List;
 
@@ -80,7 +79,7 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
         public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
             Movie oldMovie = oldList.get(oldItemPosition);
             Movie newMovie = newList.get(newItemPosition);
-            return StringUtils.equals(oldMovie.getTitle(), newMovie.getTitle());
+            return oldMovie.getTitle().equals(newMovie.getTitle());
         }
     }
 }

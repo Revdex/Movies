@@ -6,7 +6,7 @@ import com.digitu.movies.data.source.local.database.StorageModule;
 import com.digitu.movies.data.source.remote.service.NetworkModule;
 import com.digitu.movies.modules.detail.DetailActivity;
 import com.digitu.movies.modules.movies.MovieListActivity;
-import com.digitu.movies.modules.movies.MovieListViewModel;
+import com.digitu.movies.modules.movies.MovieViewModel;
 
 import javax.inject.Singleton;
 
@@ -22,5 +22,5 @@ public interface DataComponent {
 
     void inject(MovieListActivity movieListActivity);
 
-    void inject(MovieListViewModel movieListViewModel);
+    void inject(MovieViewModel movieListViewModel);
 }
