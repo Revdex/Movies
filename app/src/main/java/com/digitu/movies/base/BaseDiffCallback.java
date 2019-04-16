@@ -1,13 +1,14 @@
 package com.digitu.movies.base;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DiffUtil;
-
 import com.digitu.movies.utils.CollectionUtils;
+import com.digitu.movies.utils.StringUtils;
 
 import java.util.List;
 
-public abstract class BaseDiffCallback<D> extends DiffUtil.Callback {
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
+
+public class BaseDiffCallback<D extends BaseEntity> extends DiffUtil.Callback {
 
     protected List<D> oldList;
     protected List<D> newList;
@@ -38,11 +39,16 @@ public abstract class BaseDiffCallback<D> extends DiffUtil.Callback {
     @Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        //you can return particular field for changed item.
         return super.getChangePayload(oldItemPosition, newItemPosition);
     }
 
-    public abstract boolean areItemsTheSame(int oldItemPosition, int newItemPosition);
+    @Override
+    public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+        return oldList.get(oldItemPosition).equals(newList.get(newItemPosition));
+    }
 
-    public abstract boolean areContentsTheSame(int oldItemPosition, int newItemPosition);
+    @Override
+    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+        return StringUtils.equals(oldList.get(oldItemPosition).getUniqueID(), newList.get(newItemPosition).getUniqueID());
+    }
 }

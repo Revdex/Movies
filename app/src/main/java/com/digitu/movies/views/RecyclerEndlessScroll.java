@@ -1,11 +1,13 @@
-package com.digitu.movies.utils;
+package com.digitu.movies.views;
+
+import org.jetbrains.annotations.NotNull;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-public abstract class EndlessScroll extends RecyclerView.OnScrollListener {
+public class RecyclerEndlessScroll extends RecyclerView.OnScrollListener {
 
     private RecyclerView.LayoutManager layoutManager;
     // The minimum amount of items to have below your current scroll position before loading more.
@@ -19,18 +21,17 @@ public abstract class EndlessScroll extends RecyclerView.OnScrollListener {
     // Sets the starting page index
     private int startingPageIndex = 2;
 
-    public EndlessScroll(LinearLayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-    }
+    private OnLoadMoreListener listener;
 
-    public EndlessScroll(GridLayoutManager layoutManager) {
+    public RecyclerEndlessScroll(RecyclerView.LayoutManager layoutManager, OnLoadMoreListener listener) {
+        this.listener = listener;
         this.layoutManager = layoutManager;
-        visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
-    }
-
-    public EndlessScroll(StaggeredGridLayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-        visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
+        if (layoutManager instanceof GridLayoutManager) {
+            visibleThreshold = visibleThreshold * ((GridLayoutManager) layoutManager).getSpanCount();
+        }
+        if (layoutManager instanceof StaggeredGridLayoutManager) {
+            visibleThreshold = visibleThreshold * ((StaggeredGridLayoutManager) layoutManager).getSpanCount();
+        }
     }
 
     public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
@@ -61,7 +62,7 @@ public abstract class EndlessScroll extends RecyclerView.OnScrollListener {
     // We are given a few useful parameters to help us work out if we need to load some more data,
     // but first we check if we are waiting for the previous load to finish.
     @Override
-    public void onScrolled(RecyclerView view, int dx, int dy) {
+    public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
         int lastVisibleItemPosition = 0;
         int totalItemCount = layoutManager.getItemCount();
         if (layoutManager instanceof StaggeredGridLayoutManager) {
@@ -95,7 +96,7 @@ public abstract class EndlessScroll extends RecyclerView.OnScrollListener {
         // threshold should reflect how many total columns there are too
         if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
             currentPage++;
-            onLoadMore(currentPage, totalItemCount, view);
+            listener.onLoadMore(recyclerView, currentPage, totalItemCount);
             loading = true;
         }
     }
@@ -108,5 +109,10 @@ public abstract class EndlessScroll extends RecyclerView.OnScrollListener {
     }
 
     // Defines the process for actually loading more data based on page
-    public abstract void onLoadMore(int page, int totalItemsCount, RecyclerView view);
+
+    public interface OnLoadMoreListener {
+
+        void onLoadMore(RecyclerView recyclerView, int page, int totalItemsCount);
+
+    }
 }

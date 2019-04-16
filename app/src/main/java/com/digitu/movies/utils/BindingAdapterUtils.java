@@ -5,11 +5,17 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.RequestBuilder;
+import com.digitu.movies.base.BaseAdapter;
+import com.digitu.movies.base.BaseEntity;
 import com.digitu.movies.base.GlideApp;
+import com.digitu.movies.views.AdvancedRecyclerView;
+import com.digitu.movies.views.RecyclerClickListener;
+import com.digitu.movies.views.RecyclerEndlessScroll;
 
+import java.util.List;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class BindingAdapterUtils {
 
@@ -24,13 +30,26 @@ public class BindingAdapterUtils {
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
-    @BindingAdapter("onLoadMore")
-    public static void setRecyclerViewEndlessScroll(RecyclerView recyclerView, EndlessScroll endlessScroll) {
-        endlessScroll = new EndlessScroll((LinearLayoutManager) recyclerView.getLayoutManager()) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-            }
-        };
-        recyclerView.addOnScrollListener(endlessScroll);
+    @BindingAdapter("items")
+    public static <T extends BaseEntity> void setRecyclerViewItems(AdvancedRecyclerView recyclerView, List<T> items) {
+        /*if (recyclerView != null && items != null && recyclerView.getAdapter() != null &&
+                recyclerView.getAdapter() instanceof BaseAdapter) {
+            BaseAdapter adapter = (BaseAdapter) recyclerView.getAdapter();
+            adapter.change(items);
+        }*/
+        final BaseAdapter<T> adapter = recyclerView.getBaseAdapter();
+        if (adapter != null) {
+            recyclerView.getBaseAdapter().change(items);
+        }
     }
+
+    @BindingAdapter(value = {"onItemClick", "onLongClick", "onLoadMore"}, requireAll = false)
+    public static void setRecyclerViewOnItemClickListener(final @NonNull AdvancedRecyclerView recyclerView,
+                                                          final RecyclerClickListener.OnItemClickListener onItemClickListener,
+                                                          final RecyclerClickListener.OnItemLongClickListener onItemLongClickListener,
+                                                          final RecyclerEndlessScroll.OnLoadMoreListener onLoadMoreListener) {
+        recyclerView.setOnItemClickListener(onItemClickListener, onItemLongClickListener);
+        recyclerView.setOnLoadMoreListener(onLoadMoreListener);
+    }
+
 }

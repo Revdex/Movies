@@ -5,8 +5,10 @@ import com.digitu.movies.base.BaseGlideModule;
 import com.digitu.movies.data.source.local.database.StorageModule;
 import com.digitu.movies.data.source.remote.service.NetworkModule;
 import com.digitu.movies.modules.detail.DetailActivity;
+import com.digitu.movies.modules.detail.DetailMovieViewModel;
+import com.digitu.movies.modules.home.HomeViewModel;
 import com.digitu.movies.modules.movies.MovieListActivity;
-import com.digitu.movies.modules.movies.MovieViewModel;
+import com.digitu.movies.modules.movies.MovieListViewModel;
 
 import javax.inject.Singleton;
 
@@ -22,5 +24,9 @@ public interface DataComponent {
 
     void inject(MovieListActivity movieListActivity);
 
-    void inject(MovieViewModel movieListViewModel);
+    void inject(MovieListViewModel movieListViewModel);
+
+    void inject(HomeViewModel homeViewModel);
+
+    void inject(DetailMovieViewModel detailMovieViewModel);
 }

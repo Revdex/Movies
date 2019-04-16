@@ -24,7 +24,7 @@ import static com.digitu.movies.data.source.local.entity.Movie.POPULAR;
 import static com.digitu.movies.data.source.local.entity.Movie.TOP_RATED;
 import static com.digitu.movies.data.source.local.entity.Movie.UPCOMING;
 
-public class MovieViewModel extends BaseViewModel {
+public class MovieListViewModel extends BaseViewModel {
 
     @Inject
     MovieRepository repository;
@@ -35,7 +35,7 @@ public class MovieViewModel extends BaseViewModel {
     private int pageNowPlaying;
 
 
-    public MovieViewModel(@NonNull Application application) {
+    public MovieListViewModel(@NonNull Application application) {
         super(application);
         App.getDataComponent().inject(this);
         this.pagePopular = 0;

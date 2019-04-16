@@ -1,6 +1,8 @@
 package com.digitu.movies.base;
 
 import android.app.Application;
+
+import androidx.annotation.CallSuper;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.annotation.NonNull;
 
@@ -18,6 +20,7 @@ public class BaseViewModel extends AndroidViewModel {
         mDisposable = new CompositeDisposable();
     }
 
+    @CallSuper
     @Override
     protected void onCleared() {
         super.onCleared();

@@ -1,5 +1,6 @@
 package com.digitu.movies.data.source.remote;
 
+import com.digitu.movies.data.source.local.entity.DetailMovie;
 import com.digitu.movies.data.source.local.entity.Movie;
 import com.digitu.movies.data.source.remote.response.MoviesResponse;
 import com.digitu.movies.data.source.remote.service.ServiceEndpoint;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 import static com.digitu.movies.data.source.local.entity.Movie.NOW_PLAYING;
 import static com.digitu.movies.data.source.local.entity.Movie.POPULAR;
@@ -59,6 +61,15 @@ public class MovieRemoteDataSource {
 
     public Flowable<List<Movie>> getNowPlaying(int page) {
         return serviceEndpoint.getNowPlaying(page).map(MoviesResponse::getMovies);
+    }
+
+
+    public Flowable<DetailMovie> getDetail(long id) {
+        return serviceEndpoint.getDetail(id);
+    }
+
+    public Single<DetailMovie> getMovie(long id) {
+        return serviceEndpoint.getMovie(id);
     }
 
 }

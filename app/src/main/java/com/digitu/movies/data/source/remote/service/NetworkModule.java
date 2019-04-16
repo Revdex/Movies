@@ -52,7 +52,7 @@ public class NetworkModule {
     Interceptor provideLogInterceptor() {
         final HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(Logger::v);
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return logInterceptor;
+        return new HttpLoggingInterceptor();
     }
 
     @Singleton

@@ -1,6 +1,7 @@
 package com.digitu.movies.data.source.repository;
 
 import com.digitu.movies.data.source.local.MovieLocalDataSource;
+import com.digitu.movies.data.source.local.entity.DetailMovie;
 import com.digitu.movies.data.source.local.entity.Movie;
 import com.digitu.movies.data.source.remote.MovieRemoteDataSource;
 
@@ -11,6 +12,7 @@ import javax.inject.Singleton;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LiveDataReactiveStreams;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -25,6 +27,10 @@ public class MovieRepository {
     public MovieRepository(@NonNull MovieLocalDataSource localDataSource, @NonNull MovieRemoteDataSource remoteDataSource) {
         this.localDataSource = localDataSource;
         this.remoteDataSource = remoteDataSource;
+    }
+
+    public LiveData<DetailMovie> getMovie(long id) {
+        return LiveDataReactiveStreams.fromPublisher(remoteDataSource.getDetail(id));
     }
 
     public LiveData<List<Movie>> getMovies() {
@@ -44,6 +50,10 @@ public class MovieRepository {
                 .flatMap(movies -> Flowable.fromIterable(movies))
                 .doOnNext(movie -> localDataSource.add(movie, category))
                 .toList();
+    }
+
+    public Single<DetailMovie> getDetailMovie(long id) {
+        return remoteDataSource.getMovie(id);
     }
 }
 

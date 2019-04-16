@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.digitu.movies.R;
 import com.digitu.movies.base.BaseFragment;
 import com.digitu.movies.data.source.local.entity.Movie;
-import com.digitu.movies.utils.EndlessScroll;
+import com.digitu.movies.views.RecyclerEndlessScroll;
 import com.digitu.movies.utils.Logger;
 
 import androidx.annotation.NonNull;
@@ -27,7 +27,7 @@ public class MovieListFragment extends BaseFragment {
     private RecyclerView mRcvMovies;
     private MovieAdapter mMovieAdapter;
     private LinearLayoutManager mLayoutManager;
-    private MovieViewModel mViewModel;
+    private MovieListViewModel mViewModel;
 
     public MovieListFragment() {
         // Required empty public constructor
@@ -55,7 +55,7 @@ public class MovieListFragment extends BaseFragment {
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
-        mViewModel = ViewModelProviders.of(mActivity).get(MovieViewModel.class);
+        mViewModel = ViewModelProviders.of(mActivity).get(MovieListViewModel.class);
 
     }
 
@@ -70,12 +70,7 @@ public class MovieListFragment extends BaseFragment {
     private void initRecyclerView() {
         mMovieAdapter = new MovieAdapter();
         mLayoutManager = new LinearLayoutManager(mActivity);
-        mRcvMovies.addOnScrollListener(new EndlessScroll(mLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                mViewModel.loadMovies(category);
-            }
-        });
+        mRcvMovies.addOnScrollListener(new RecyclerEndlessScroll(mLayoutManager, (page, totalItemsCount, view) -> mViewModel.loadMovies(category)));
         mRcvMovies.setLayoutManager(mLayoutManager);
         mRcvMovies.setHasFixedSize(true);
         mRcvMovies.setAdapter(mMovieAdapter);
@@ -85,6 +80,8 @@ public class MovieListFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
         mRcvMovies = view.findViewById(R.id.movies_rcv_movies);
+
+
         return view;
     }
 

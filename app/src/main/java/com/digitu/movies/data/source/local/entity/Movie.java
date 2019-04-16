@@ -1,5 +1,7 @@
 package com.digitu.movies.data.source.local.entity;
 
+import com.digitu.movies.base.BaseEntity;
+import com.digitu.movies.utils.MovieUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,12 +21,17 @@ import androidx.room.PrimaryKey;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-public class Movie {
+public class Movie implements BaseEntity {
 
     public static final String POPULAR = "POPULAR";
     public static final String TOP_RATED = "TOP_RATED";
     public static final String UPCOMING = "UPCOMING";
     public static final String NOW_PLAYING = "NOW_PLAYING";
+
+    @Override
+    public String getUniqueID() {
+        return id + "";
+    }
 
     @StringDef({POPULAR, TOP_RATED, UPCOMING, NOW_PLAYING})
     @Retention(RetentionPolicy.SOURCE)
@@ -180,7 +187,6 @@ public class Movie {
         this.voteAverage = voteAverage;
     }
 
-
     public Set<String> getCategories() {
         return categories;
     }
@@ -191,6 +197,26 @@ public class Movie {
 
     public void setCategory(@Category String category) {
         this.categories.add(category);
+    }
+
+    public String getBackdrop() {
+        return MovieUtils.getBackdrop(backdropPath);
+    }
+
+    public String getPoster() {
+        return MovieUtils.getPoster(posterPath);
+    }
+
+    public String getRate() {
+        return MovieUtils.getRate(voteAverage);
+    }
+
+    public String getGenre() {
+        return genreIds.toString();
+    }
+
+    public String getDate() {
+        return MovieUtils.getDate(releaseDate);
     }
 
     @Override
@@ -210,8 +236,9 @@ public class Movie {
     public String toString() {
         String data = "";
         data += "[" + title + "]";
-        data += "[" + releaseDate + "]";
-        /*  data += "[" + adult + "]";
+        data += "[" + categories + "]";
+        /* data += "[" + releaseDate + "]";
+         data += "[" + adult + "]";
         data += "[" + popularity + "]";
         data += "[" + voteCount + "]";
         data += "[" + voteAverage + "]";

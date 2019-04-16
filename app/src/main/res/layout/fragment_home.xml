@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".modules.movies.MovieListFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.digitu.movies.modules.home.HomeViewModel" />
+    </data>
+
+    <com.digitu.movies.views.AdvancedRecyclerView
         android:id="@+id/home_rcv_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
+        app:adapter="com.digitu.movies.modules.home.HomeAdapter"
+        app:hasFixedSize="true"
+        app:items="@{viewModel.movies}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:onItemClick="@{(recyclerView, position, child) -> viewModel.onItemClick(recyclerView, position, child)}"
+        app:onLoadMore="@{(recyclerView, page, count) -> viewModel.onLoadMore(recyclerView, page, count)}"
+        app:onLongClick="@{(recyclerView, position, child) -> viewModel.onLongClick(recyclerView, position, child)}"
         tools:listitem="@layout/item_movie" />
 
-</FrameLayout>
+</layout>

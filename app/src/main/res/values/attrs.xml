@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AdvancedRecyclerView">
+        <attr name="hasFixedSize" format="boolean" />
+        <attr name="adapter" format="string" />
+    </declare-styleable>
+
+</resources>
