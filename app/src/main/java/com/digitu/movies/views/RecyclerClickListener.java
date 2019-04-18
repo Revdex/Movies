@@ -4,10 +4,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import org.jetbrains.annotations.NotNull;
-
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.jetbrains.annotations.NotNull;
 
 public class RecyclerClickListener implements RecyclerView.OnItemTouchListener {
 
@@ -15,7 +15,6 @@ public class RecyclerClickListener implements RecyclerView.OnItemTouchListener {
     private OnItemLongClickListener onItemLongClickListener;
     private OnItemClickListener onItemClickListener;
     private GestureDetector gestureDetector;
-
     public RecyclerClickListener(final RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         intGestureDetector();
