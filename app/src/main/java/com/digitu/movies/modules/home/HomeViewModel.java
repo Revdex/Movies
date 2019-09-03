@@ -5,6 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.digitu.movies.App;
 import com.digitu.movies.base.ObservableViewModel;
 import com.digitu.movies.data.source.local.entity.Movie;
@@ -18,10 +23,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -62,7 +63,11 @@ public class HomeViewModel extends ObservableViewModel {
         mDisposable.add(repository.loadMovies(Movie.POPULAR, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe());
+                .subscribe((movies, error) -> {
+                    Logger.e("LoadMovies", "[" + movies + " - " + error + "]");
+
+                }));
+
     }
 
     public LiveData<Movie> getMovie() {
@@ -78,6 +83,7 @@ public class HomeViewModel extends ObservableViewModel {
     public void onItemClick(RecyclerView recyclerView, int position, View child) {
         Logger.e("onItemClick", position);
         Intent intent = new Intent(context, DetailActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(DetailActivity.MOVIE_ID, MovieUtils.getIdMovie(getMovies(), position));
         context.startActivity(intent);
     }

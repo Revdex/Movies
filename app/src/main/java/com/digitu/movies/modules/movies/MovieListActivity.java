@@ -4,6 +4,10 @@ package com.digitu.movies.modules.movies;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import com.digitu.movies.R;
 import com.digitu.movies.base.BaseActivity;
 import com.digitu.movies.base.BaseFragment;
@@ -12,10 +16,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 
 public class MovieListActivity extends BaseActivity {
     private Toolbar mToolbar;

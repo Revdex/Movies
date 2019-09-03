@@ -44,37 +44,35 @@ android {
 }
 
 ext {
-    material = "1.1.0-alpha05"
-    support = "1.1.0-alpha04"
-    constraint = "2.0.0-alpha4"
+    material = "1.1.0-alpha09"
+    support = "1.1.0-rc01"
+    constraint = "2.0.0-beta2"
     multidex = "2.0.1"
     futures = "1.0.0-alpha02"
-    lifecycle = "2.1.0-alpha04"
-    room = "2.1.0-alpha06"
+    lifecycle = "2.2.0-alpha03"
+    room = "2.2.0-beta01"
     paging = "1.0.1"
-    navigation = "1.0.0"
+    navigation = "2.2.0-alpha01"
     workmanager = "1.0.1"
-    glide = "4.8.0"
+    glide = '4.9.0'
     retrofit = "2.5.0"
     rxretrofit = "1.0.0"
     jackson = "2.9.8"
     rxjava = "2.2.6"
     rxandroid = "2.1.0"
-    dagger = "2.21"
+    dagger = '2.22.1'
     javax = "1.0"
-    okhttp = "3.13.1"
+    okhttp = '3.14.1'
     okio = "2.2.2"
     eventbus = "3.1.1"
 }
-
-
 
 dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     /* Material */
     implementation "com.google.android.material:material:$material"
     /* Support */
@@ -98,8 +96,8 @@ dependencies {
     implementation 'androidx.paging:paging-runtime:2.1.0'
     implementation "android.arch.paging:rxjava2:${paging}"
     /* Navigation */
-    implementation "android.arch.navigation:navigation-fragment:${navigation}"
-    implementation "android.arch.navigation:navigation-ui:${navigation}"
+    implementation "androidx.navigation:navigation-fragment:${navigation}"
+    implementation "androidx.navigation:navigation-ui:${navigation}"
     /* WorkManager */
     implementation "android.arch.work:work-runtime:${workmanager}"
     /* Glide */

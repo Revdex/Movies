@@ -1,5 +1,9 @@
 package com.digitu.movies.data.source.repository;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LiveDataReactiveStreams;
+
 import com.digitu.movies.data.source.local.MovieLocalDataSource;
 import com.digitu.movies.data.source.local.entity.DetailMovie;
 import com.digitu.movies.data.source.local.entity.Movie;
@@ -10,9 +14,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.LiveDataReactiveStreams;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;

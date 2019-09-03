@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+
 import com.bumptech.glide.RequestBuilder;
 import com.digitu.movies.base.BaseAdapter;
 import com.digitu.movies.base.BaseEntity;
@@ -13,9 +16,6 @@ import com.digitu.movies.views.RecyclerClickListener;
 import com.digitu.movies.views.RecyclerEndlessScroll;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
 
 public class BindingAdapterUtils {
 
@@ -37,10 +37,10 @@ public class BindingAdapterUtils {
             BaseAdapter adapter = (BaseAdapter) recyclerView.getAdapter();
             adapter.change(items);
         }*/
+        if (recyclerView == null) return;
         final BaseAdapter<T> adapter = recyclerView.getBaseAdapter();
-        if (adapter != null) {
-            recyclerView.getBaseAdapter().change(items);
-        }
+        if (adapter != null) recyclerView.getBaseAdapter().change(items);
+
     }
 
     @BindingAdapter(value = {"onItemClick", "onLongClick", "onLoadMore"}, requireAll = false)

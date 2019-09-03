@@ -2,6 +2,8 @@ package com.digitu.movies.data.source.remote.service;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+
 import com.digitu.movies.utils.Logger;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -16,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import androidx.annotation.NonNull;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -30,8 +31,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class NetworkModule {
 
     private static final int DISK_CACHE_SIZE = 10 * 1024 * 1024; // 10MB
-    private static final long CONNECT_TIMEOUT = 60; // 10MB
-    private static final long READ_TIMEOUT = 60; // 10MB
+    private static final long CONNECT_TIMEOUT = 60; // 1 minutes
+    private static final long READ_TIMEOUT = 60; // 1 minutes
     private static final String LOG_INTERCEPTOR = "LogInterceptor";
     private static final String REQUEST_INTERCEPTOR = "RequestInterceptor";
     private final String baseUrl;
@@ -58,8 +59,8 @@ public class NetworkModule {
     @Singleton
     @Provides
     @Named(REQUEST_INTERCEPTOR)
-    Interceptor provideRequestInterceptor() {
-        return new RequestInterceptor();
+    Interceptor provideRequestInterceptor(@NonNull Application application) {
+        return new RequestInterceptor(application);
     }
 
     @Singleton
