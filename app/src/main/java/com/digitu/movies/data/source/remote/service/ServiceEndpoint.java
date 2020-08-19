@@ -56,7 +56,6 @@ public interface ServiceEndpoint {
     @GET(DETAILS_MOVIE_URL)
     Flowable<DetailMovie> getDetail(@Path("movie_id") long id);
 
-
     /* Movie */
     @GET(DETAILS_MOVIE_URL)
     Single<DetailMovie> getMovie(@Path("movie_id") long id);
