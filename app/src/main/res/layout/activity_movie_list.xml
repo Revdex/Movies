@@ -19,8 +19,8 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:theme="@style/AppTheme.AppBarOverlay" />
+            app:popupTheme="@style/Theme.Application.PopupOverlay"
+            app:theme="@style/Theme.Application.AppBarOverlay" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"

@@ -10,8 +10,8 @@ import androidx.lifecycle.AndroidViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class ObservableViewModel extends AndroidViewModel implements Observable {
-    private transient PropertyChangeRegistry mCallbacks;
     protected final CompositeDisposable mDisposable;
+    private transient PropertyChangeRegistry mCallbacks;
 
     public ObservableViewModel(@NonNull Application application) {
         super(application);
