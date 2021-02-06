@@ -99,8 +99,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.constraintlayout:constraintlayout:$constraint"
     implementation "androidx.multidex:multidex:$multidex"
-    /* Concurrent Futures */
-    implementation "androidx.concurrent:concurrent-futures:$futures"
     /* ViewModel and LiveData */
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
@@ -142,8 +140,6 @@ dependencies {
     implementation "com.squareup.okio:okio:${okio}"
     /* Eventbus */
     implementation "org.greenrobot:eventbus:${eventbus}"
-    /* DebugDB */
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
 }
 
