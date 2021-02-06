@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 
 public class BindingAdapterUtils {
+    private BindingAdapterUtils() {
+    }
 
     @BindingAdapter("url")
     public static void setImageUrl(ImageView view, String url) {
@@ -38,7 +40,7 @@ public class BindingAdapterUtils {
             adapter.change(items);
         }*/
         if (recyclerView == null) return;
-        final BaseAdapter<T> adapter = recyclerView.getBaseAdapter();
+        final BaseAdapter adapter = recyclerView.getBaseAdapter();
         if (adapter != null) recyclerView.getBaseAdapter().change(items);
     }
 

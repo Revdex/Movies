@@ -1,8 +1,9 @@
 package com.digitu.movies.data.source.local.database;
 
-import androidx.room.Room;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
+import androidx.room.Room;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,6 +20,7 @@ public class StorageModule {
     public SharedPreference provideSharedPreferences(@NonNull Context context, @NonNull ObjectMapper objectMapper) {
         return new SharedPreference(context, objectMapper);
     }
+
 
     @Provides
     @Singleton

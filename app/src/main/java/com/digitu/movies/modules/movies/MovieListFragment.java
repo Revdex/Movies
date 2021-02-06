@@ -6,17 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.digitu.movies.R;
-import com.digitu.movies.base.BaseFragment;
-import com.digitu.movies.data.source.local.entity.Movie;
-import com.digitu.movies.views.RecyclerEndlessScroll;
-import com.digitu.movies.utils.Logger;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.digitu.movies.R;
+import com.digitu.movies.base.BaseFragment;
+import com.digitu.movies.data.source.local.entity.Movie;
+import com.digitu.movies.utils.Logger;
+import com.digitu.movies.views.RecyclerEndlessScroll;
 
 
 public class MovieListFragment extends BaseFragment {
@@ -61,7 +61,7 @@ public class MovieListFragment extends BaseFragment {
 
     private void initObserver() {
         mViewModel.loadMovies(category);
-        mViewModel.getMovies(category).observe(this, movies -> {
+        mViewModel.getMovies(category).observe(mActivity, movies -> {
             mMovieAdapter.change(movies);
             Logger.i("LoadMovies()", "[" + category + "] (" + movies.size() + ")");
         });
