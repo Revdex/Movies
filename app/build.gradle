@@ -33,10 +33,11 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 
     packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/NOTICE'
@@ -58,61 +59,55 @@ android {
     }
 }
 
-ext {
-    material = "1.3.0"
-    support = "1.2.0"
-    constraint = "2.1.0-alpha2"
-    multidex = "2.0.1"
-    futures = "1.1.0"
-    lifecycle = "2.2.0"
-    room = "2.2.6"
-    paging = "1.0.1"
-    navigation = "2.3.3"
-    workmanager = "1.0.1"
-    glide = '4.9.0'
-    retrofit = "2.7.1"
-    rxretrofit = "1.0.0"
-    jackson = "2.9.8"
-    rxjava = "2.2.6"
-    rxandroid = "2.1.1"
-    dagger = '2.22.1'
-    javax = "1.0"
-    okhttp = '4.2.2'
-    okio = "2.2.2"
-    eventbus = "3.1.1"
-}
-
 dependencies {
-
-    implementation "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5"
+    /* Testing */
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation 'androidx.test:runner:1.3.0'
     testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    /* Material */
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.3.0", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
+    /* KTX */
+    implementation "androidx.activity:activity-ktx:1.1.0"
+    implementation "androidx.collection:collection-ktx:1.1.0"
+    implementation "androidx.core:core-ktx:1.3.2"
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    /* Kotlin */
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
+    implementation "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    /* UI */
     implementation "com.google.android.material:material:$material"
-    /* Support */
-    implementation "androidx.appcompat:appcompat:$support"
     implementation "androidx.vectordrawable:vectordrawable:1.2.0-alpha02"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.constraintlayout:constraintlayout:$constraint"
+    /* Support */
+    implementation "androidx.appcompat:appcompat:$support"
     implementation "androidx.multidex:multidex:$multidex"
     /* ViewModel and LiveData */
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle"
     /* Room */
-    implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-ktx:$room"
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-rxjava2:$room"
+    androidTestImplementation "androidx.room:room-testing:$room"
     /* Paging */
-    implementation 'androidx.paging:paging-runtime:2.1.2'
-    implementation "android.arch.paging:rxjava2:${paging}"
+    implementation "androidx.paging:paging-common-ktx:${paging}"
+    implementation "androidx.paging:paging-runtime-ktx:${paging}"
+    implementation "androidx.paging:paging-rxjava2-ktx:${paging}"
     /* Navigation */
-    implementation "androidx.navigation:navigation-fragment:${navigation}"
-    implementation "androidx.navigation:navigation-ui:${navigation}"
+    implementation "androidx.navigation:navigation-runtime-ktx:${navigation}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${navigation}"
     /* WorkManager */
     implementation "android.arch.work:work-runtime:${workmanager}"
     /* Glide */
@@ -138,8 +133,6 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:${okhttp}"
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttp}"
     implementation "com.squareup.okio:okio:${okio}"
-    /* Eventbus */
-    implementation "org.greenrobot:eventbus:${eventbus}"
 
 }
 
