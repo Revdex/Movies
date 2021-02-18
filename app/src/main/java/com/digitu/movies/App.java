@@ -5,6 +5,7 @@ import com.digitu.movies.data.DataComponent;
 import com.digitu.movies.data.source.local.database.StorageModule;
 import com.digitu.movies.data.source.remote.service.NetworkModule;
 import com.digitu.movies.data.source.remote.service.ServiceEndpoint;
+import com.digitu.movies.di.ViewModelModule;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
@@ -32,6 +33,7 @@ public class App extends MultiDexApplication {
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule(ServiceEndpoint.BASE_URL))
                 .storageModule(new StorageModule())
+                .viewModelModule(new ViewModelModule())
                 .build();
     }
 }

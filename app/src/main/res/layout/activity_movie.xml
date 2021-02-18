@@ -7,20 +7,20 @@
 
         <variable
             name="viewModel"
-            type="com.digitu.movies.modules.home.HomeViewModel" />
+            type="com.digitu.movies.modules.movie.MovieViewModel" />
     </data>
 
     <com.digitu.movies.views.AdvancedRecyclerView
         android:id="@+id/home_rcv_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:adapter="com.digitu.movies.modules.home.HomeAdapter"
+        app:adapter="com.digitu.movies.modules.movie.MovieAdapter"
         app:hasFixedSize="true"
         app:items="@{viewModel.movies}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:onItemClick="@{(recyclerView, position, child) -> viewModel.onItemClick(recyclerView, position, child)}"
         app:onLoadMore="@{(recyclerView, page, count) -> viewModel.onLoadMore(recyclerView, page, count)}"
         app:onLongClick="@{(recyclerView, position, child) -> viewModel.onLongClick(recyclerView, position, child)}"
-        tools:listitem="@layout/item_movie" />
+        tools:listitem="@layout/item_home" />
 
 </layout>

@@ -5,8 +5,7 @@ import java.util.Map;
 
 public class Config {
 
-    public static final String BASE_URL = "http://image.tmdb.org/t/p/";
-    public static final String SECURE_BASE_URL = "https://image.tmdb.org/t/p/";
+    public static final String BASE_URL = "https://image.tmdb.org/t/p/";
     public static final String[] BACKDROP_SIZES = {"w300", "w780", "w1280", "original"};
     public static final String[] POSTER_SIZES = {"w92", "w154", "w185", "w342", "w500", "w780", "original"};
     public static final String[] LOGO_SIZES = {"w45", "w92", "w154", "w185", "w300", "w500", "original"};

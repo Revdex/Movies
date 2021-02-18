@@ -1,4 +1,4 @@
-package com.digitu.movies.modules.home;
+package com.digitu.movies.modules.movie;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
-public class HomeAdapter extends BaseAdapter<Movie> {
+public class MovieAdapter extends BaseAdapter<Movie> {
 
-    public HomeAdapter() {
+    public MovieAdapter() {
         super();
     }
 

@@ -1,17 +1,8 @@
-package com.digitu.movies.modules.home;
+package com.digitu.movies.modules.movie;
 
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.digitu.movies.App;
-import com.digitu.movies.base.ObservableViewModel;
 import com.digitu.movies.data.source.local.entity.Movie;
 import com.digitu.movies.data.source.repository.MovieRepository;
 import com.digitu.movies.modules.detail.DetailActivity;
@@ -23,21 +14,35 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.CallSuper;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class HomeViewModel extends ObservableViewModel {
+public class MovieViewModel extends ViewModel {
 
-    @Inject
-    MovieRepository repository;
-    private final Context context;
+    private final CompositeDisposable disposable;
+    private final MovieRepository repository;
     private LiveData<List<Movie>> movies;
     private MutableLiveData<Integer> movieId = new MutableLiveData<>();
 
-    public HomeViewModel(@NonNull Application application) {
-        super(application);
-        this.context = application;
-        App.getDataComponent().inject(this);
+    @Inject
+    public MovieViewModel(MovieRepository repository) {
+        this.repository = repository;
+        this.disposable = new CompositeDisposable();
+    }
+
+    @CallSuper
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (!disposable.isDisposed()) {
+            disposable.clear();
+        }
     }
 
     public MutableLiveData<Integer> getMovieId() {
@@ -60,7 +65,7 @@ public class HomeViewModel extends ObservableViewModel {
     }
 
     public void loadMovies(int page) {
-        mDisposable.add(repository.loadMovies(Movie.POPULAR, page)
+        disposable.add(repository.loadMovies(Movie.POPULAR, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((movies, error) -> {
@@ -82,10 +87,10 @@ public class HomeViewModel extends ObservableViewModel {
 
     public void onItemClick(RecyclerView recyclerView, int position, View child) {
         Logger.e("onItemClick", position);
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(recyclerView.getContext(), DetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(DetailActivity.MOVIE_ID, MovieUtils.getIdMovie(getMovies(), position));
-        context.startActivity(intent);
+        recyclerView.getContext().startActivity(intent);
     }
 
 

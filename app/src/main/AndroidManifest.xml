@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Application">
 
         <activity
-            android:name=".modules.home.HomeActivity"
+            android:name=".modules.movie.MovieActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,12 +25,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".modules.movies.MovieListActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Application.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".modules.detail.DetailActivity"

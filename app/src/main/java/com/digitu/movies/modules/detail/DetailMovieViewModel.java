@@ -1,28 +1,23 @@
 package com.digitu.movies.modules.detail;
 
-import android.app.Application;
-
-import com.digitu.movies.App;
-import com.digitu.movies.base.ObservableViewModel;
 import com.digitu.movies.data.source.local.entity.DetailMovie;
 import com.digitu.movies.data.source.repository.MovieRepository;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.Single;
 
-public class DetailMovieViewModel extends ObservableViewModel {
-    @Inject
-    MovieRepository repository;
+public class DetailMovieViewModel extends ViewModel {
+    private final MovieRepository repository;
     private MutableLiveData<Long> movieId = new MutableLiveData<>();
 
-    public DetailMovieViewModel(@NonNull Application application) {
-        super(application);
-        App.getDataComponent().inject(this);
+    @Inject
+    public DetailMovieViewModel(MovieRepository repository) {
+        this.repository = repository;
     }
 
     public LiveData<DetailMovie> getMovie() {

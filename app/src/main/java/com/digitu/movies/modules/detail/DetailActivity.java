@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.digitu.movies.App;
 import com.digitu.movies.R;
 import com.digitu.movies.base.BaseActivity;
 import com.digitu.movies.data.source.local.entity.DetailMovie;
 import com.digitu.movies.databinding.ActivityDetailBinding;
+import com.digitu.movies.di.ViewModelFactory;
 import com.digitu.movies.utils.Logger;
+
+import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -22,14 +26,16 @@ public class DetailActivity extends BaseActivity {
 
     public static final String MOVIE_ID = "MOVIE_ID";
     private long movieId;
+    @Inject ViewModelFactory mViewModelFactory;
     private DetailMovieViewModel mViewModel;
     private ActivityDetailBinding mBinding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.getDataComponent().inject(this);
         movieId = getIntent().getLongExtra(MOVIE_ID, 0);
-        mViewModel = ViewModelProviders.of(mActivity).get(DetailMovieViewModel.class);
+        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(DetailMovieViewModel.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
       //  mBinding.setMovie(mViewModel.getMovie());
         mBinding.setLifecycleOwner(this);
